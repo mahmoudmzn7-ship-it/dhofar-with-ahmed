@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نافذة ظفار السياحية</title>
+
+<!-- خط Cairo الجميل -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--green:#1e8449;
+--gold:#FFD700;
+}
+body{margin:0;font-family:Tahoma, Arial;background:#111}
+
+/* HERO */
+.hero{
+height:70vh;
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+.hero h1{
+font-family: 'Cairo', Tahoma, Arial, sans-serif;
+font-size:3.5rem;
+text-align:center;
+font-weight:700;
+background: linear-gradient(90deg, #FFD700, #00CED1, #ADFF2F, #FF69B4);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: gradientText 8s ease infinite;
+letter-spacing: 1px;
+text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+}
+
+/* حركة التدرج */
+@keyframes gradientText {
+0% {background-position:0% 50%;}
+50% {background-position:100% 50%;}
+100% {background-position:0% 50%;}
+}
+
+/* NAV */
+nav{
+background:#fff;
+display:flex;
+justify-content:center;
+gap:20px;
+padding:15px;
+flex-wrap:wrap;
+}
+nav a{
+cursor:pointer;
+padding:8px 18px;
+border-radius:20px;
+font-weight:bold;
+color:var(--green);
+text-decoration:none;
+transition:.3s;
+}
+nav a:hover{background:var(--green);color:#fff}
+
+/* MAIN */
+main{
+background:#fff;
+width:90%;
+margin:30px auto;
+padding:25px;
+border-radius:12px;
+}
+.section{display:none}
+.section.active{display:block}
+
+/* CARDS */
+.cards{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+}
+.card{
+width:260px;
+background:#f6f6f6;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 4px 8px rgba(0,0,0,.2);
+transition:.3s;
+cursor:pointer;
+}
+.card:hover{transform:scale(1.05)}
+.card img{
+width:100%;
+height:170px;
+object-fit:cover;
+}
+.card h3{text-align:center;color:var(--green)}
+.card p{text-align:center;padding:0 10px 15px}
+
+/* TIP CARDS (الرئيسية) */
+.tips-container{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+margin-top:25px;
+}
+.tip-card{
+background:#f5f5f5;
+border-left:6px solid var(--green);
+border-radius:10px;
+padding:15px;
+width:250px;
+box-shadow:0 4px 8px rgba(0,0,0,.15);
+transition:.3s;
+}
+.tip-card:hover{transform:scale(1.05)}
+.tip-card h4{margin-top:0;color:var(--green)}
+.tip-card p{margin:10px 0 0;font-size:0.95rem}
+
+/* TABLES */
+table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0;
+}
+th,td{
+border:1px solid #ccc;
+padding:10px;
+text-align:center;
+}
+th{background:var(--green);color:#fff}
+
+/* CONTACT */
+.contact-box{
+background:#f5f5f5;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+/* SURVEY */
+.survey-box{
+display:flex;
+flex-direction:column;
+gap:12px;
+margin:15px 0;
+}
+.survey-box label{
+font-weight:bold;
+}
+.survey-box select,
+.survey-box textarea,
+.survey-box button{
+padding:8px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+.survey-box button{
+background:var(--green);
+color:#fff;
+border:none;
+cursor:pointer;
+transition:.3s;
+}
+.survey-box button:hover{opacity:.8}
+
+/* FOOTER */
+footer{
+background:#000;
+color:#fff;
+text-align:center;
+padding:15px;
+}
+
+/* POPUP */
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.7);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+.popup-content{
+background:#fff;
+padding:20px;
+border-radius:12px;
+max-width:600px;
+width:90%;
+position:relative;
+text-align:center;
+}
+.popup-content img{
+width:100%;
+border-radius:10px;
+margin-bottom:10px;
+}
+.popup-content h3{color:var(--green)}
+.popup-content p{margin-top:5px}
+.close{
+position:absolute;
+top:10px;
+right:15px;
+font-size:22px;
+cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.hero h1{font-size:2rem;}
+.cards,.tips-container{justify-content:center;}
+.card,.tip-card{width:90%;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+<h1>نافذة ظفار السياحية</h1>
+</div>
+
+<!-- NAV -->
+<nav>
+<a data-tab="home">الرئيسية</a>
+<a data-tab="places">المعالم السياحية</a>
+<a data-tab="info">معلومات عن ظفار</a>
+<a data-tab="survey">قيمنا</a>
+<a data-tab="contact">اتصل بنا</a>
+</nav>
+
+<main>
+
+<!-- الرئيسية -->
+<section id="home" class="section active">
+<h2>مرحبًا بكم في ظفار</h2>
+<p>
+ظفار جوهرة السياحة العُمانية، تجمع بين الطبيعة، الشلالات، البحر، الجبال،
+والتراث العريق خاصة في موسم الخريف.
+</p>
+
+<h3>💡 معلومات ونصائح للسائحين</h3>
+<div class="tips-container">
+
+<div class="tip-card">
+<h4>زيارة وادي دربات</h4>
+<p>أفضل وقت لزيارة الشلالات هو موسم الخريف، لا تنسَ الكاميرا!</p>
+</div>
+
+<div class="tip-card">
+<h4>الشواطئ</h4>
+<p>ارتدِ ملابس مناسبة للبحر واحترس من الأمواج أثناء المد العالي.</p>
+</div>
+
+<div class="tip-card">
+<h4>السوق التراثي</h4>
+<p>تأكد من تجربة اللبان العماني الأصلي والتفاوض بأسلوب لطيف.</p>
+</div>
+
+<div class="tip-card">
+<h4>الطقس</h4>
+<p>احمل معك مظلة أو جاكيت خفيف، فالطقس قد يتغير فجأة خاصة في الخريف.</p>
+</div>
+
+<div class="tip-card">
+<h4>التنقل</h4>
+<p>يفضل استخدام سيارة دفع رباعي للوصول إلى الأماكن الجبلية والوديان.</p>
+</div>
+
+</div>
+</section>
+
+<!-- المعالم السياحية -->
+<section id="places" class="section">
+<h2>أهم المعالم السياحية في محافظة ظفار</h2>
+<div class="cards">
+
+<div class="card" data-img="images/wadi-darbat.jpg" data-title="وادي دربات" data-desc="وادي شهير بالشلالات والمساحات الخضراء خلال موسم الخريف.">
+<img src="./images/wadi-darbat.jpg"><h3>وادي دربات</h3><p>شلالات وطبيعة خضراء</p></div>
+
+<div class="card" data-img="images/maghsail.jpg" data-title="شاطئ المغسيل" data-desc="شاطئ يتميز بالنوافير البحرية والمناظر الساحلية الخلابة.">
+<img src="./images/maghsail.jpg"><h3>شاطئ المغسيل</h3><p>نوافير بحرية</p></div>
+
+<div class="card" data-img="images/ain-jarziz.jpg" data-title="عين جرزيز" data-desc="عين طبيعية تتحول إلى شلال جميل في موسم الخريف.">
+<img src="./images/ain-jarziz.jpg"><h3>عين جرزيز</h3><p>شلال موسمي</p></div>
+
+<div class="card" data-img="images/ain-razat.jpg" data-title="عين رزات" data-desc="عين مائية محاطة بالحدائق، مناسبة للعائلات.">
+<img src="./images/ain-razat.jpg"><h3>عين رزات</h3><p>حدائق وينابيع</p></div>
+
+<div class="card" data-img="images/fazayah.jpg" data-title="شاطئ الفزايا" data-desc="شاطئ هادئ بمياه فيروزية وطبيعة بكر.">
+<img src="./images/fazayah.jpg"><h3>شاطئ الفزايا</h3><p>شاطئ هادئ</p></div>
+
+<div class="card" data-img="images/wadi-nahiz.jpg" data-title="وادي نحيز" data-desc="وادي جبلي يتميز بالتكوينات الصخرية والطبيعة الهادئة.">
+<img src="./images/wadi-nahiz.jpg"><h3>وادي نحيز</h3><p>وادي جبلي</p></div>
+
+<div class="card" data-img="images/khor-rori.jpg" data-title="خور روري" data-desc="موقع طبيعي وأثري مسجّل ضمن مواقع التراث العالمي.">
+<img src="./images/khor-rori.jpg"><h3>خور روري</h3><p>موقع أثري عالمي</p></div>
+
+<div class="card" data-img="images/frankincense-museum.jpg" data-title="متحف أرض اللبان" data-desc="متحف يعرض تاريخ تجارة اللبان العُماني عبر العصور.">
+<img src="./images/frankincense-museum.jpg"><h3>متحف أرض اللبان</h3><p>تاريخ اللبان</p></div>
+
+<div class="card" data-img="images/al-hafah-market.jpg" data-title="سوق الحافة" data-desc="سوق تراثي مشهور ببيع اللبان والعطور والهدايا.">
+<img src="./images/al-hafah-market.jpg"><h3>سوق الحافة</h3><p>سوق تراثي</p></div>
+
+</div>
+</section>
+
+<!-- معلومات عن ظفار -->
+<section id="info" class="section">
+<h2>معلومات شاملة عن ظفار</h2>
+
+<h3>📍 معلومات عامة</h3>
+<table>
+<tr><th>العنصر</th><th>التفاصيل</th></tr>
+<tr><td>الموقع</td><td>جنوب سلطنة عمان</td></tr>
+<tr><td>العاصمة</td><td>صلالة</td></tr>
+<tr><td>المناخ</td><td>معتدل وخريفي</td></tr>
+<tr><td>أهم المواسم</td><td>الخريف (يونيو – سبتمبر)</td></tr>
+</table>
+
+<h3>🌿 المميزات الطبيعية</h3>
+<table>
+<tr><th>التصنيف</th><th>أمثلة</th></tr>
+<tr><td>طبيعة</td><td>شلالات – عيون – جبال</td></tr>
+<tr><td>سياحة</td><td>شواطئ – مغامرات – تخييم</td></tr>
+<tr><td>ثقافة</td><td>اللبان – الأسواق – المتاحف</td></tr>
+</table>
+
+<h3>🧠 خريطة ذهنية (وصفية)</h3>
+<ul>
+<li>ظفار
+<ul>
+<li>الطبيعة → شلالات، خضرة، جبال</li>
+<li>السياحة → خريف، بحر، رحلات</li>
+<li>الثقافة → اللبان، الأسواق، التراث</li>
+</ul>
+</li>
+</ul>
+</section>
+
+<!-- قيمنا (الاستبيان) -->
+<section id="survey" class="section">
+<h2 id="surveyTitle">📝 استبيان زوار نافذة ظفار السياحية</h2>
+
+<select id="langSwitcher">
+  <option value="ar">العربية</option>
+  <option value="en">English</option>
+</select>
+
+<form id="surveyForm" class="survey-box">
+
+<label id="q1">الفئة العمرية</label>
+<select id="age" required>
+  <option>أقل من 18</option>
+  <option>18 – 25</option>
+  <option>26 – 35</option>
+  <option>36 – 50</option>
+  <option>أكثر من 50</option>
+</select>
+
+<label id="q2">هل سبق لك زيارة ظفار؟</label>
+<select id="visit">
+  <option>نعم</option>
+  <option>لا</option>
+</select>
+
+<label id="q3">كيف تقيّم الموقع؟</label>
+<select id="rate">
+  <option value="5">⭐⭐⭐⭐⭐</option>
+  <option value="4">⭐⭐⭐⭐</option>
+  <option value="3">⭐⭐⭐</option>
+  <option value="2">⭐⭐</option>
+  <option value="1">⭐</option>
+</select>
+
+<label id="q4">رأيك أو اقتراحك</label>
+<textarea id="comment"></textarea>
+
+<button type="submit" id="sendBtn">إرسال</button>
+</form>
+
+<h3>📊 نتائج الاستبيان</h3>
+<div id="results"></div>
+
+<button onclick="downloadCSV()">💾 تحميل النتائج</button>
+<button onclick="downloadCertificate()">🏆 شهادة مشاركة</button>
+</section>
+
+<!-- اتصل بنا -->
+<section id="contact" class="section">
+<h2>اتصل بنا</h2>
+<div class="contact-box">
+<p>📧 info@dhofar.com</p>
+<p>📞 99999999</p>
+<p>📍 سلطنة عمان – ظفار</p>
+</div>
+</section>
+
+<footer>© 2026 نافذة ظفار السياحية</footer>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<div class="popup-content">
+<span class="close" id="close">×</span>
+<img id="popup-img">
+<h3 id="popup-title"></h3>
+<p id="popup-desc"></p>
+</div>
+</div>
+
+<script>
+// ====== TABS ======
+document.querySelectorAll("nav a").forEach(l=>{
+l.onclick=()=>{
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(l.dataset.tab).classList.add("active");
+};
+});
+
+// ====== HERO SLIDESHOW ======
+const hero=document.querySelector(".hero");
+const imgs=[
+"images/waterfall-bg.jpg",
+"images/waterfall1.jpg",
+"images/waterfall2.jpg",
+"images/waterfall3.jpg",
+"images/waterfall4.jpg"
+];
+let i=0;
+hero.style.backgroundImage=`linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('${imgs[0]}')`;
+setInterval(()=>{
+i=(i+1)%imgs.length;
+hero.style.backgroundImage=`linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('${imgs[i]}')`;
+},5000);
+
+// ====== POPUP CARDS ======
+const cards=document.querySelectorAll(".card");
+const popup=document.getElementById("popup");
+const popupImg=document.getElementById("popup-img");
+const popupTitle=document.getElementById("popup-title");
+const popupDesc=document.getElementById("popup-desc");
+const closeBtn=document.getElementById("close");
+
+cards.forEach(card=>{
+card.onclick=()=>{
+popup.style.display="flex";
+popupImg.src=card.dataset.img;
+popupTitle.textContent=card.dataset.title;
+popupDesc.textContent=card.dataset.desc;
+};
+});
+closeBtn.onclick=()=>popup.style.display="none";
+popup.onclick=e=>{if(e.target===popup)popup.style.display="none"}
+
+// ====== الاستبيان ======
+let surveyData = JSON.parse(localStorage.getItem("surveyData")) || [];
+
+const surveyForm = document.getElementById("surveyForm");
+const age = document.getElementById("age");
+const visit = document.getElementById("visit");
+const rate = document.getElementById("rate");
+const comment = document.getElementById("comment");
+const results = document.getElementById("results");
+const sendBtn = document.getElementById("sendBtn");
+const surveyTitle = document.getElementById("surveyTitle");
+const langSwitcher = document.getElementById("langSwitcher");
+const q1 = document.getElementById("q1");
+const q2 = document.getElementById("q2");
+const q3 = document.getElementById("q3");
+const q4 = document.getElementById("q4");
+
+surveyForm.onsubmit = function(e){
+  e.preventDefault();
+  let entry = {
+    age: age.value,
+    visit: visit.value,
+    rate: Number(rate.value),
+    comment: comment.value
+  };
+  surveyData.push(entry);
+  localStorage.setItem("surveyData", JSON.stringify(surveyData));
+  showResults();
+  surveyForm.reset();
+  alert("✅ شكرًا لمشاركتك!");
+};
+
+// عرض النتائج
+function showResults(){
+  if(surveyData.length === 0) return;
+  let total = surveyData.length;
+  let avg = (
+    surveyData.reduce((sum,e)=>sum+e.rate,0) / total
+  ).toFixed(1);
+  results.innerHTML = `
+    <p>عدد المشاركين: <b>${total}</b></p>
+    <p>متوسط التقييم: ⭐ <b>${avg}</b></p>
+  `;
+}
+showResults();
+
+// تحميل CSV
+function downloadCSV(){
+  let csv = "Age,Visited,Rate,Comment\n";
+  surveyData.forEach(e=>{
+    csv += `${e.age},${e.visit},${e.rate},"${e.comment}"\n`;
+  });
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+  a.download = "survey-results.csv";
+  a.click();
+}
+
+// شهادة مشاركة كصورة PNG
+function downloadCertificate(){
+  const canvas = document.createElement("canvas");
+  canvas.width = 800;
+  canvas.height = 600;
+  const ctx = canvas.getContext("2d");
+
+  // خلفية
+  ctx.fillStyle = "#fff8dc";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // إطار
+  ctx.strokeStyle = "#1e8449";
+  ctx.lineWidth = 8;
+  ctx.strokeRect(20,20,canvas.width-40,canvas.height-40);
+
+  // نص الشهادة
+  ctx.fillStyle = "#1e8449";
+  ctx.font = "bold 36px Cairo, Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("شهادة مشاركة", canvas.width/2, 100);
+
+  ctx.font = "24px Cairo, Arial";
+  ctx.fillText("نشهد بأن الزائر قد شارك", canvas.width/2, 180);
+  ctx.fillText("في استبيان نافذة ظفار السياحية", canvas.width/2, 230);
+  ctx.fillText("شكرًا لمساهمتك 🌿", canvas.width/2, 350);
+
+  // تحميل
+  const a = document.createElement("a");
+  a.href = canvas.toDataURL("image/png");
+  a.download = "certificate.png";
+  a.click();
+}
+
+// ====== اللغات ======
+const lang = {
+  ar:{
+    title:"📝 استبيان زوار نافذة ظفار السياحية",
+    q1:"الفئة العمرية",
+    q2:"هل سبق لك زيارة ظفار؟",
+    q3:"كيف تقيّم الموقع؟",
+    q4:"رأيك أو اقتراحك",
+    send:"إرسال"
+  },
+  en:{
+    title:"📝 Dhofar Tourism Survey",
+    q1:"Age Group",
+    q2:"Have you visited Dhofar?",
+    q3:"How do you rate the website?",
+    q4:"Your comment",
+    send:"Submit"
+  }
+};
+
+langSwitcher.onchange = function(){
+  let l = lang[this.value];
+  surveyTitle.textContent = l.title;
+  q1.textContent = l.q1;
+  q2.textContent = l.q2;
+  q3.textContent = l.q3;
+  q4.textContent = l.q4;
+  sendBtn.textContent = l.send;
+};
+</script>
+
+</body>
+</html>
